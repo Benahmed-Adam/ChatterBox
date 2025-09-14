@@ -35,7 +35,6 @@ class _GroupPageState extends State<GroupPage> {
   late Timer _timer;
   int _currentOffset = 0;
   final int _limit = 20;
-  bool _sendedMessage = false;
   String groupName = "";
 
   @override
@@ -94,7 +93,7 @@ class _GroupPageState extends State<GroupPage> {
         _loadingMessages = false;
       });
     }
-    _loadMoreMessages();
+    await _loadMoreMessages();
     _scrollToBottom();
   }
 
@@ -166,8 +165,8 @@ class _GroupPageState extends State<GroupPage> {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (_scrollController.hasClients) {
         _scrollController.animateTo(
-          _scrollController.position.maxScrollExtent,
-          duration: const Duration(milliseconds: 300),
+          _scrollController.position.maxScrollExtent * 1.2,
+          duration: const Duration(milliseconds: 100),
           curve: Curves.easeOut,
         );
       }
@@ -186,7 +185,6 @@ class _GroupPageState extends State<GroupPage> {
 
     _messageController.clear();
     _refresh();
-    _sendedMessage = true;
   }
 
   void _refresh() async {
@@ -220,10 +218,7 @@ class _GroupPageState extends State<GroupPage> {
         _messagesWidgets.addAll(widgets);
       });
 
-      if (_sendedMessage) {
-        _scrollToBottom();
-        _sendedMessage = false;
-      }
+      _scrollToBottom();
     }
   }
 

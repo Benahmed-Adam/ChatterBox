@@ -24,8 +24,12 @@ class _ChatterBoxAppState extends State<ChatterBoxApp> {
   @override
   void initState() {
     super.initState();
-    initBaseUrl();
-    _checkIfUserLoggedIn();
+    _initialize();
+  }
+
+  Future<void> _initialize() async {
+    await initBaseUrl();
+    await _checkIfUserLoggedIn();
   }
 
   void _showSnackBar(String message, Color color) {

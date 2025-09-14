@@ -6,10 +6,10 @@ import 'dart:convert';
 
 import 'package:shared_preferences/shared_preferences.dart';
 
-String originUrl = "http://10.0.2.2:8000";
+String originUrl = "https://app.bustedindustries.com";
 String baseUrl = originUrl;
 
-void initBaseUrl() async {
+Future<void> initBaseUrl() async {
   final prefs = await SharedPreferences.getInstance();
   if (prefs.containsKey("current_server")) {
     final a = prefs.getString("current_server");
